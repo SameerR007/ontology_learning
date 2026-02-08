@@ -1,0 +1,13 @@
+Analyze the text provided below to design a high-level Domain Ontology.
+
+### TASK
+1. **Identify Ontology Classes**: Identify the core Subjects and Objects in the text, but **do not** extract specific proper nouns, names, dates, or instance values. Instead, map every specific entity to its broader **Ontological Class** (Category or Semantic Type).
+2. **Identify Relationships**: Identify the specific predicates that connect these classes.
+3. **Rationale**: For each connection, explain briefly why this relationship exists between these two classes based on the text.
+
+### MAPPING RULES
+- **Strict Abstraction**: Convert all specific instances (companies, people, products, locations, specific numbers) into their general types.
+- **Consistency**: Ensure similar entities are mapped to the same class (e.g., if one company is mapped to "Corporation", ensure others are too).
+
+### TEXT TO ANALYZE
+{text}

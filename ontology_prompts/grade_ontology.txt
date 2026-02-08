@@ -1,0 +1,12 @@
+Analyze the following two ontology extractions. 
+Select the one that achieves the best balance of **correct abstraction** (mapping instances to appropriate classes) and **relationship accuracy**.
+
+**Selection Criteria:**
+1. **Abstraction Quality**: Does the model correctly identify the general category of an entity rather than just repeating the specific name? Are the classes specific enough to be useful?
+2. **Structural Integrity**: Are the relationships between classes logical?
+3. **Comprehensiveness**: Does it capture the main structural dynamics of the text without getting lost in specific data points?
+
+Return ONLY the text of the better option.
+
+Option 1: {candidate_1}
+Option 2: {candidate_2}
