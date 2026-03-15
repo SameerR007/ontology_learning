@@ -2,3 +2,11 @@ translate_reports/myenv
 translate_reports/.env
 translate_reports/reports_de
 translate_reports/reports_en
+
+first_iteration/myenv
+first_iteration/.env
+first_iteration/try.py
+first_iteration/reports_en
+first_iteration/ontologies
+first_iteration/guidelines
+first_iteration/thinking_traces

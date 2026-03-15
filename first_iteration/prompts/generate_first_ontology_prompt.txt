@@ -1,0 +1,62 @@
+You are an expert medical ontologist and data engineer. Your task is to analyze the provided medical report and extract a formal ontology representing the entities, their attributes, and their relationships.
+
+You must output the ontology strictly as a JSON array of JSON Schema objects, using the following custom rules:
+
+1. Represent each concept (e.g., Patient, Disease, Medication) as a separate JSON Schema object.
+
+2. Include a title for the class name.
+
+3. Use @id for the class's unique URI (e.g., "http://example.org/Patient").
+
+4. Use @type: "Class" for every root object.
+
+5. If a class is a specific type of another class (e.g., "BloodTest" is a "MedicalTest"), indicate this using the @subClassOf keyword with the URI of the superclass.
+
+6. Define attributes under the properties key using standard JSON Schema types (string, integer, etc.).
+
+7. If a property references another class (e.g., a Patient has a Disease), do NOT embed the class. Instead, set the property's type to the @id URI of the referenced class.
+
+8. List mandatory attributes in a required array.
+
+Output: strictly valid JSON. 
+IMPORTANT - ONLY GIVE THE JSON AS OUTPUT.
+
+Example - 
+
+Input report - 
+The patient, John, is diagnosed with Type 2 Diabetes, a chronic metabolic disease.
+
+Output - 
+[
+  {
+    "title": "MetabolicDisease",
+    "@id": "http://example.org/MetabolicDisease",
+    "@type": "Class",
+    "properties": {
+      "chronicity": {
+        "type": "string"
+      }
+    }
+  },
+  {
+    "title": "Type2Diabetes",
+    "@id": "http://example.org/Type2Diabetes",
+    "@type": "Class",
+    "@subClassOf": "http://example.org/MetabolicDisease",
+    "properties": {}
+  },
+  {
+    "title": "Patient",
+    "@id": "http://example.org/Patient",
+    "@type": "Class",
+    "properties": {
+      "name": {
+        "type": "string"
+      },
+      "diagnosedWith": {
+        "type": "http://example.org/Type2Diabetes" 
+      }
+    },
+    "required": ["name"]
+  }
+]

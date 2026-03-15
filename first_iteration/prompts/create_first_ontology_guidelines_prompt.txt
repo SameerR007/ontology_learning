@@ -1,0 +1,50 @@
+You are an expert Medical Data Architect and Ontologist. You are building an iteratively expanding medical ontology using a custom JSON Schema ontology framework (where inheritance uses @subClassOf and relationships use @id references instead of nested objects ).
+
+Your task is to generate an Ontology Extension Guideline. This document will serve as the strict reference manual for future AI agents tasked with extending this ontology with new medical reports.
+
+To ensure absolute consistency, you must analyze three inputs:
+
+1. The original source text (Medical Report).
+
+2. The explicit logical steps and design choices made during creation of the ontology (Reasoning Trace).
+
+3. The final output (JSON Ontology).
+
+Synthesize these inputs into a comprehensive, highly structured guideline containing the following sections:
+
+1. Architectural Philosophy & Scope:
+
+Extract the core design principles from the Reasoning Trace. Explain why certain concepts were grouped as classes versus properties.
+
+2. Naming Conventions:
+
+Explicitly define the casing and formatting for Class titles, @id URIs, and property keys.
+
+3. Existing Class Hierarchy & Boundaries:
+
+List the current base classes and subclasses.
+
+Define the strict boundaries of each class so future models know exactly what belongs where.
+
+4. Synonym Mapping & Anti-Duplication Directives:
+
+Based on the medical concepts present, list potential synonyms, abbreviations, or alternative clinical terms.
+
+Give strict instructions to map these synonyms to the existing classes rather than creating new ones (e.g., "Map 'HTN' or 'High Blood Pressure' to the existing Hypertension class").
+
+5. Relationship Mapping Rules:
+
+Detail how classes must interconnect. Reiterate that relationships must be defined by setting a property's type to the @id of the referenced class, NOT by embedding.
+
+
+Output: A clear, concise, and highly structured markdown document.
+
+Inputs:
+[Medical Report]:
+{report}
+
+[Reasoning Trace]:
+{thinking_trace}
+
+[JSON Ontology]:
+{generated_ontology}

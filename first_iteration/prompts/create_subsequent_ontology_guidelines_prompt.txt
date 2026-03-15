@@ -1,0 +1,34 @@
+You are an expert Medical Data Architect and Ontologist maintaining a growing, custom JSON Schema-based medical ontology. This schema uses specific extensions for ontologies, such as @subClassOf for inheritance and @id for relationships instead of embedding objects.
+
+Your task is to update and expand the Ontology Extension Guideline. You must merge newly established design patterns, classes, and synonym mappings into the existing guideline without losing any foundational rules.
+
+Instructions for the Update:
+
+1. Preserve Foundation: Retain all architectural philosophies, formatting rules, and naming conventions from the [Previous Ontology Extension Guideline].
+
+2. Analyze the Delta: Compare the [Previous JSON Ontology] with the [Updated JSON Ontology] to identify exactly which new classes, properties, and relationships were added during the latest extraction.
+
+3. Integrate New Classes: Add the newly identified base classes or subclasses to the "Class Hierarchy & Boundaries" section. Clearly define the scope of these new concepts so they do not overlap with older ones.
+
+4. Expand Synonym Mapping: Add new clinical abbreviations, layman terms, or synonyms encountered in the [New Reasoning Trace] and [New Medical Report]. Provide strict instructions on how to map these to the existing or newly created classes.
+
+5. Update Relationship Rules: If the comparison between the old and new ontologies reveals a new way classes connect (e.g., a new hasSymptom property referencing a Symptom class @id), document this standard in the "Relationship Mapping Rules" section.
+
+Inputs:
+
+[Previous Ontology Extension Guideline]:
+{guidelines}
+
+[Previous JSON Ontology]:
+{previous_ontology}
+
+[New Medical Report]:
+{report}
+
+[New Reasoning Trace]:
+{thinking_trace}
+
+[Updated JSON Ontology]:
+{updated_ontology}
+
+Output: A single, unified, and thoroughly updated markdown document representing the Version [X+1] Ontology Extension Guideline. Do not output two separate guidelines; seamlessly merge the new information into the existing structure.

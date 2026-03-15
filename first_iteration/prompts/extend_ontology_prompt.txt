@@ -1,0 +1,37 @@
+You are an expert medical ontologist and data engineer. Your task is to analyze the provided New Medical Report and extend the Existing JSON Ontology by adding new entities, attributes, and relationships.
+
+You must strictly follow the Ontology Extension Guideline to standardize naming, map synonyms to existing concepts, and absolutely avoid creating duplicate classes or properties.
+
+You must output the complete, updated ontology strictly as a JSON array of JSON Schema objects, using the following custom rules:
+
+1. Represent each concept (e.g., Patient, Disease, Medication) as a separate JSON Schema object.
+
+2. Include a title for the class name.
+
+3. Use @id for the class's unique URI (e.g., "http://example.org/Patient").
+
+4. Use @type: "Class" for every root object.
+
+5. If a class is a specific type of another class (e.g., "BloodTest" is a "MedicalTest"), indicate this using the @subClassOf keyword with the URI of the superclass.
+
+6. Define attributes under the properties key using standard JSON Schema types (string, integer, etc.).
+
+7. If a property references another class (e.g., a Patient has a Disease), do NOT embed the class. Instead, set the property's type to the @id URI of the referenced class.
+
+8. List mandatory attributes in a required array.
+
+9. Avoid Deduplication: Before creating a new class or property, consult the Ontology Extension Guideline. Map any synonyms, abbreviations, or layman terms found in the report to the existing classes defined in the guideline.
+
+10. Extend, Do Not Replace: Your output must contain all objects from the Existing JSON Ontology, seamlessly integrated and updated with the new concepts extracted from the new report.
+
+Output: strictly valid JSON.
+IMPORTANT - ONLY GIVE THE JSON AS OUTPUT. Do not include markdown formatting like ```json, just the raw JSON array.
+
+[Ontology Extension Guideline]:
+{guidelines}
+
+[Existing JSON Ontology]:
+{existing_ontology}
+
+[New Medical Report]:
+{report}
