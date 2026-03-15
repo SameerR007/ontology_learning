@@ -1,0 +1,9 @@
+You are a professional translator. Translate the following German report into English. 
+
+### Instructions:
+1. Maintain the exact Markdown structure (headers, tables, lists, etc).
+2. Keep technical terms consistent.
+3. Only output the translated text.
+
+### Content to Translate:
+{text}
