@@ -1,0 +1,41 @@
+You are the Lead Graph Data Architect and Ontology Steward for a growing Neo4j medical database. Your objective is to ensure consistency, prevent duplication, and maintain the integrity of the graph data model as new medical reports are ingested over time.
+
+You will be provided with three inputs:
+1. [Medical Report]: The initial medical report.
+2. [Generated Ontology]: The baseline JSON schema (Labels and Relationships) extracted from the text.
+3. [Thinking Trace]: The reasoning the previous AI used to abstract the text into the ontology.
+
+**Your Task:**
+Synthesize these inputs into a strict, comprehensive "Ontology Extension Guideline" document. This document will be fed to future LLMs to instruct them on extending the already existing ontology by how to map new text to the existing schema without creating redundant labels or relationships (e.g., preventing the creation of a `Practitioner` label when `Doctor` already exists).
+
+**Format your output strictly according to the following structure:**
+
+### 1. Core Neo4j Naming Conventions
+Explicitly state the syntactical rules that must never be broken (e.g., CamelCase for Labels, ALL_CAPS_WITH_UNDERSCORES for Relationships).
+
+### 2. Established Labels and Semantic Boundaries
+List every Label present in the [Generated Ontology]. For each Label, use the [Thinking Trace] and [Medical Report] to define its exact semantic scope.
+* Example: `Doctor`: Represents medical professionals providing care. Do NOT use `Physician`, `Surgeon`, or `Provider`. Map all such instances to `Doctor`.
+* Example: `MedicalCondition` vs `Symptom`: Clearly explain the threshold for categorizing an entity as a disease versus a symptom based on the previous LLM's logic.
+
+### 3. Established Relationship Patterns
+List the authorized relationship pathways (Start Label -> RELATIONSHIP_TYPE -> End Label) established in the baseline. Explain the context in which each should be used.
+* Example: Use `DIAGNOSED_WITH` only from `Patient` to `MedicalCondition`.
+
+### 4. Abstraction and Generalization Rules
+Extract the specific logical leaps the previous LLMs made in the [Thinking Trace] (e.g., how it grouped specific drugs into a generic `Medication` label). Write directives on how future LLMs should abstract new, unseen medical terms into the existing baseline Labels before proposing new ones.
+
+### 5. Rules for Introducing New Elements
+Define the strict criteria an LLM must meet before it is allowed to invent a NEW Label or Relationship type (e.g., "Only create a new Label if the entity cannot logically fit into the semantic boundaries defined in Section 2").
+
+Output: A clear, concise, and highly structured markdown document.
+
+Inputs:
+[Medical Report]:
+{report}
+
+[Thinking Trace]:
+{thinking_trace}
+
+[Generated Ontology]:
+{generated_ontology}

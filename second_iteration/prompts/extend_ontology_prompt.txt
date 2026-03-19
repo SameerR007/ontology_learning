@@ -1,0 +1,35 @@
+You are an expert Graph Data Architect specializing in Neo4j and medical domain modeling. Your task is to analyze a new medical report and extend the underlying graph data model (ontology), but you MUST strictly adhere to the established schema and rules of the [Existing Guidelines].
+
+You will be provided with three inputs:
+1. [New Medical Report]: A new report to analyze, based on which the [Existing Ontology] should be extended.
+2. [Existing Ontology]: The current version of Ontology that needs to be extended.
+3. [Existing Guidelines]: The strict rulebook defining the semantic boundaries of existing Labels, how to abstract terms, and the criteria for creating new elements. This should be taken into consideration while extending [Existing Ontology].
+
+**Your Task:**
+Extend the [Existing Ontology] using the [New Medical Report]. Map the concepts in the text to the [Existing Ontology] wherever possible based on the [Existing Guidelines]. You may only introduce new Labels or Relationships if the concept cannot logically fit into the existing boundaries.
+
+**Step 1: Entity Categorization (Labels)**
+* Analyze the text for broad entity categories. 
+* rigorously check the [Existing Guidelines]. If a concept fits an existing Label's semantic scope, you MUST reuse the exact existing Label.
+* If it is a genuinely new concept, create a new Label (Singular noun, CamelCase).
+
+**Step 2: Relationship Mapping**
+* Identify the logical connections between the identified Labels.
+* Reuse existing Relationship Types (ALL_CAPS_WITH_UNDERSCORES) if they fit the context defined in the guidelines.
+* If a new type of action or connection is found, create a new Relationship Type.
+
+**Output Format:**
+Output your response strictly in the following JSON format of [Existing Ontology]
+
+Output: strictly valid JSON.
+
+IMPORTANT - ONLY GIVE THE JSON AS OUTPUT. Do not include markdown formatting like ```json, just the raw JSON array.
+
+[Existing Guidelines]:
+{guidelines}
+
+[Existing Ontology]:
+{existing_ontology}
+
+[New Medical Report]:
+{report}

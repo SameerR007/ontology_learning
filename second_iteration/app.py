@@ -126,11 +126,11 @@ def build_graph():
         with open(f"ontologies/ontology_v_{(state['report_num']-1)}.txt", "r", encoding="utf-8") as f:
             previous_ontology = f.read()
 
-        logger.debug(f"Updating ontology guidelines...")
+        logger.debug("Updating ontology guidelines...")
 
         response = llm.invoke(prompt.format(guidelines=state["guidelines"], report=state["report"], thinking_trace=state["thinking_trace"], previous_ontology=previous_ontology, updated_ontology=state["generated_ontology"]))
         
-        logger.debug(f"Ontology guidelines updated")
+        logger.debug("Ontology guidelines updated")
 
         return {"updated_guidelines": response.content}
 
@@ -167,13 +167,12 @@ def build_graph():
 graph=build_graph()
 
 from pathlib import Path
+from json2graph import generate_save_graph
 
 input_dir = Path("reports_en")
 files = [str(f.name) for f in input_dir.glob("*.md")]
 
-from json2graph import generate_save_graph
-
-for i in range(54, 66):
+for i in range(4, len(files)):
     #print(f"Report number = {i+1}")
     file_path="reports_en/"+files[i]
     
@@ -182,5 +181,60 @@ for i in range(54, 66):
     
     graph.invoke({"report":report, "report_num":(i+1)})
 
-    print(f"Report number = {i+1} Completed")
+    logger.debug(f"Report number {i+1} Completed")
+
     generate_save_graph(f"ontologies/ontology_v_{i+1}.txt", f"ontology_graphs/ontology_graph_v_{i+1}.html")
+
+
+"""png_data = graph.get_graph().draw_mermaid_png()
+
+# Save to file
+with open("graph.png", "wb") as f:
+    f.write(png_data)
+
+"""
+
+
+
+"""file_path="en_0010136489_29702726.md"
+
+with open(file_path, "r", encoding="utf-8") as f:
+    report = f.read()
+
+response = graph.invoke({"report":report})
+thinking_trace=response["thinking_trace"]
+generated_ontology = response["generated_ontology"]
+
+
+output_path = "generated_ontology_thinking_trace.txt"
+with open(output_path, "w", encoding="utf-8") as f:
+    f.write(thinking_trace)
+
+
+output_path = "generated_ontology.txt"
+with open(output_path, "w", encoding="utf-8") as f:
+    f.write(generated_ontology)
+
+
+
+input_dir = Path(r"F:\Docs\Munich\Sem6\Thesis\LMUKlinikum\Week2\report_translate\reports_de")
+files = [str(f.name) for f in input_dir.glob("*.md")]
+
+for i in range(2, len(files)):
+    print(i)
+    file_path="reports_de/"+files[i]
+    
+    with open(file_path, "r", encoding="utf-8") as f:
+        original_report = f.read()
+    
+    translated_report = (graph.invoke({"original_report":original_report}))["translated_report"]
+
+    output_dir = Path("reports_en")
+    output_dir.mkdir(exist_ok=True)
+  
+    output_path = "reports_en/" + f"en_{files[i]}"
+    
+    with open(output_path, "w", encoding="utf-8") as f:
+        f.write(translated_report)
+
+    """

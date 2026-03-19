@@ -1,0 +1,77 @@
+**Role:** You are an expert Graph Data Architect specializing in Neo4j and medical domain modeling. 
+**Task:** Analyze the provided medical report and extract ONLY the graph data model (ontology). You must abstract the specific data points in the text into a generalized schema.
+
+> **CRITICAL INSTRUCTION:** Do NOT extract specific instances or values (e.g., do not extract "John Doe" or "120/80"). Instead, extract the schema elements that would hold that data.
+
+---
+
+## Schema Extraction Pipeline
+
+### Step 1: Identify Entity Types (Labels)
+Analyze the text to determine the broad categories of objects or entities present (e.g., abstracting "Dr. Smith" into the category of "Doctor").
+* **Rule 1:** Labels must represent singular nouns.
+* **Rule 2:** Labels must begin with a capital letter and use PascalCase (e.g., `Patient`, `MedicalCondition`).
+
+### Step 2: Identify Relationship Types
+Determine the connections that link the entity categories together. You must capture a balance of two specific types of relationships:
+* **Taxonomic (Hierarchical):** Identify structural classifications (e.g., `IS_A`, `TYPE_OF`, `PART_OF`).
+* **Non-Taxonomic (Associative):Determine the actions or factual connections that link these entity categories together based on the narrative of the text.
+
+**Relationship Rules:**
+* **Rule:** All Relationship types must be in `ALL_CAPS_WITH_UNDERSCORES`.
+* **Rule:** Non-Taxonomic Relationship types must be verbs or actions.
+* **Rule:** Non-Taxonomic Relationship types must be in ALL_CAPS_WITH_UNDERSCORES (e.g., `DIAGNOSED_WITH`, `PRESCRIBED_FOR`, `REPORTS_SYMPTOM`).
+* **Rule:** Do not use label names in relation ship types. For eg - "DEPARTMENT_DIRECTED_BY_PHYSICIAN" is wrong. This makes it too specific. Just use "DIRECTED_BY"
+
+
+### Step 3: Identify Label Properties & Data Types
+For each Label identified in Step 1, determine the attributes that belong to it.
+* **Rule 1:** Extract the property keys and infer their expected Neo4j data type (e.g., `string`, `integer`, `float`, `boolean`, `date`, `list`).
+* **Rule 2:** Property keys must be a single identifier beginning with a lower-case letter and using camelCase (e.g., `firstName`, `bloodPressureSystolic`).
+
+
+### Step 4: Identify Relationship Properties & Data Types
+For each Relationship identified in Step 3, determine if there is data that describes the connection itself (e.g., the date a diagnosis was made).
+* **Rule 1:** Extract the property keys and infer their expected data type (e.g., `string`, `integer`, `float`, `boolean`, `date`, `list`).
+* **Rule 2:** Property keys must use camelCase (e.g., `diagnosisDate`, `dosageAmount`).
+
+### Step 5: Map the Schema
+Define the exact allowed connections between the Labels using the identified Relationship types. Every relationship must strictly define which Label it starts from (source node) and which Label it points to (target node).
+
+---
+
+## Output Format
+
+Output your findings in a structured JSON format. Ensure properties are formatted as objects containing both the key and the expected data type.
+
+> **IMPORTANT:** ONLY GIVE THE JSON AS OUTPUT. Do not include markdown formatting wrappers (like ```json), just output the raw JSON array.
+
+
+JSON Output example
+
+[{
+  "Ontology": {
+    "Labels": [
+      {
+        "name": "Patient",
+        "properties": [
+          {"key": "firstName", "type": "string"}, 
+          {"key": "dateOfBirth", "type": "date"},
+          {"key": "isSmoker", "type": "boolean"}
+        ]
+      }
+    ],
+    "RelationshipTypes": [
+      {
+        "name": "PRESCRIBED",
+        "properties": [
+          {"key": "prescriptionDate", "type": "date"},
+          {"key": "refillsAllowed", "type": "integer"}
+        ]
+      }
+    ],
+    "SchemaMap": [
+      {"start_label": "Doctor", "type": "PRESCRIBED", "end_label": "Medication"}
+    ]
+  }
+}]

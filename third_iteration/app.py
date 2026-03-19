@@ -126,11 +126,11 @@ def build_graph():
         with open(f"ontologies/ontology_v_{(state['report_num']-1)}.txt", "r", encoding="utf-8") as f:
             previous_ontology = f.read()
 
-        logger.debug(f"Updating ontology guidelines...")
+        logger.debug("Updating ontology guidelines...")
 
         response = llm.invoke(prompt.format(guidelines=state["guidelines"], report=state["report"], thinking_trace=state["thinking_trace"], previous_ontology=previous_ontology, updated_ontology=state["generated_ontology"]))
         
-        logger.debug(f"Ontology guidelines updated")
+        logger.debug("Ontology guidelines updated")
 
         return {"updated_guidelines": response.content}
 
@@ -167,13 +167,12 @@ def build_graph():
 graph=build_graph()
 
 from pathlib import Path
+from json2graph import generate_save_graph
 
 input_dir = Path("reports_en")
 files = [str(f.name) for f in input_dir.glob("*.md")]
 
-from json2graph import generate_save_graph
-
-for i in range(54, 66):
+for i in range(30, 60):
     #print(f"Report number = {i+1}")
     file_path="reports_en/"+files[i]
     
@@ -182,5 +181,6 @@ for i in range(54, 66):
     
     graph.invoke({"report":report, "report_num":(i+1)})
 
-    print(f"Report number = {i+1} Completed")
-    generate_save_graph(f"ontologies/ontology_v_{i+1}.txt", f"ontology_graphs/ontology_graph_v_{i+1}.html")
+    logger.debug(f"Report number {i+1} Completed")
+
+    #generate_save_graph(f"ontologies/ontology_v_{i+1}.txt", f"ontology_graphs/ontology_graph_v_{i+1}.html")

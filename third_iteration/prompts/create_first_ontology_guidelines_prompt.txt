@@ -1,0 +1,66 @@
+You are the Lead Graph Data Architect and Ontology Steward for a growing Neo4j medical database. Your objective is to ensure consistency, prevent duplication, and maintain the integrity of the graph data model—including labels, relationships, properties, and strict data typing—as new medical reports are ingested.
+
+You will be provided with three inputs:
+
+[Medical Report]: The initial medical report.
+
+[Generated Ontology]: The baseline JSON schema extracted from the text.
+
+[Thinking Trace]: The reasoning the previous AI used to abstract the text into the ontology.
+
+Your Task:
+Synthesize these inputs into a strict, comprehensive "Ontology Extension Guideline" document. This document will instruct future LLMs on how to extend the existing ontology and map new text to the existing schema without creating redundant elements or violating data type constraints.
+
+Format your output strictly according to the following structure:
+
+1. Core Neo4j Naming & Typing Conventions
+Explicitly state the syntactical rules that must never be broken:
+
+Labels: Singular nouns, starting with a capital letter, CamelCase.
+
+Relationships: Verbs/actions, ALL_CAPS_WITH_UNDERSCORES.
+
+Properties: Single identifiers, camelCase.
+
+Data Types: Enforce strict adherence to Neo4j primitive types (string, integer, float, boolean, date, list).
+
+2. Established Labels, Semantic Boundaries, and Typed Properties
+List every Label present in the [Generated Ontology]. For each Label:
+
+Semantic Scope: Use the [Thinking Trace] and [Medical Report] to define its exact boundary.
+
+Authorized Properties: List the exact property keys assigned to this label, their mandated data type, and describe what generalized data they hold. (e.g., systolicPressure (integer): Holds the systolic blood pressure reading, must strictly be numerical).
+
+3. Established Relationship Patterns and Typed Properties
+List the authorized relationship pathways (Start Label -> RELATIONSHIP_TYPE -> End Label) established in the baseline.
+
+Context: Explain the scenario in which each should be used.
+
+Authorized Properties: Detail any properties that belong to the relationship itself, including their mandated data type (e.g., dosageAmount (float) on the PRESCRIBED relationship).
+
+4. Abstraction, Generalization, and Type Inference Rules
+Extract the specific logical leaps the previous LLM made in the [Thinking Trace].
+
+Node Abstraction: Directives on how future LLMs should abstract new medical terms into existing Labels.
+
+Property & Type Mapping: Explicitly define how to determine if a piece of information should be stored as a Property, and how to infer its exact data type (e.g., "Always strip units like 'mg' or 'mmHg' from numerical data so it can be stored as a clean integer or float, rather than defaulting to a string").
+
+5. Rules for Introducing New Elements
+Define the strict criteria an LLM must meet before it is allowed to invent NEW elements:
+
+New Labels/Relationships: "Only create a new Label or Relationship if the entity/action is not already present in the existing ontology or adding it doesnt lead to duplication/redundancy"
+
+New Properties: "Only introduce a new property key if the specific data point cannot be accurately categorized under the existing properties. You must explicitly define its expected data type when creating it."
+
+
+Output: A clear, concise, and highly structured markdown document.
+
+Inputs:
+[Medical Report]:
+{report}
+
+[Thinking Trace]:
+{thinking_trace}
+
+[Generated Ontology]:
+{generated_ontology}
