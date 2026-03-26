@@ -172,7 +172,7 @@ from json2graph import generate_save_graph
 input_dir = Path("reports_en")
 files = [str(f.name) for f in input_dir.glob("*.md")]
 
-for i in range(30, 60):
+for i in range(60, 66):
     #print(f"Report number = {i+1}")
     file_path="reports_en/"+files[i]
     
