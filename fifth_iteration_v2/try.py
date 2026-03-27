@@ -1,7 +1,7 @@
 
 import json
 
-with open(f"ontologies/report_9/ontology_v_7.txt", "r", encoding="utf-8") as f:
+with open(f"ontologies/report_26/ontology_v_10.txt", "r", encoding="utf-8") as f:
     existing_ontology = f.read()
 
 existing_ontology = json.loads(existing_ontology)
